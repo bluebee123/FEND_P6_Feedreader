@@ -32,6 +32,7 @@ $(function() {
             allFeeds.forEach(function(feedObject) {
                 expect(feedObject.url).toBeDefined();
                 expect(feedObject.url).not.toBe("");
+                expect(feedObject.url).not.toBe(null);
             });
         });
         /* DONE: Write a test that loops through each feed
@@ -42,6 +43,7 @@ $(function() {
             allFeeds.forEach(function(feedObject) {
                 expect(feedObject.name).toBeDefined();
                 expect(feedObject.name).not.toBe("");
+                expect(feedObject.name).not.toBe(null);
             });
         });
     });
@@ -89,14 +91,12 @@ $(function() {
          */
         beforeEach(function(done) {
             //load the first feed
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
-        it('runs successfully', function(done) {
+
+        it('runs successfully', function() {
             //the  length of list of .entry elements should be longer than 0
             expect($('.entry').length).not.toBe(0);
-            done();
         });
     });
     /* DONE: Write a new test suite named "New Feed Selection"*/
@@ -105,19 +105,26 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        //remember the lastContents html
+         //delete feeds contents so there is no dependency to other suites
+        $(".feed").empty();
+
         var lastContent;
         beforeEach(function(done) {
-            lastContent = $(".feed").html();
-            //load a different feed than the initial one (which would be 0)
-            loadFeed(3, function() {
-                done();
-            });
+            //load feed with index 0, and set a new callback for loadFeed
+            loadFeed(1,cb);
+            function cb() {
+            //remember the content of the current feed
+                lastContent = $(".feed").html();
+            }
+            //and call loadFeed with a different feed.
+            loadFeed(3);
+            done();
         });
-        it('changes content', function(done) {
+
+        it('changes content', function() {
             //new .feed.html should be different from the lastContent variable.
             expect($(".feed").html()).not.toBe(lastContent);
-            done();
+
         });
     });
 }());
