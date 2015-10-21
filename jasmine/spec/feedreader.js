@@ -31,7 +31,7 @@ $(function() {
         it('have URLs', function() {
             allFeeds.forEach(function(feedObject) {
                 expect(feedObject.url).toBeDefined();
-                expect(feedObject.url).not.toBe("");
+                expect(feedObject.url).not.toBe('');
                 expect(feedObject.url).not.toBe(null);
             });
         });
@@ -42,12 +42,12 @@ $(function() {
         it('have names', function() {
             allFeeds.forEach(function(feedObject) {
                 expect(feedObject.name).toBeDefined();
-                expect(feedObject.name).not.toBe("");
+                expect(feedObject.name).not.toBe('');
                 expect(feedObject.name).not.toBe(null);
             });
         });
     });
-    /* DONE: Write a new test suite named "The menu" */
+    /* DONE: Write a new test suite named 'The menu' */
     describe('The menu', function() {
         /* DONE: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -58,7 +58,7 @@ $(function() {
          The body has the class menu-hidden when the menu is hidden (it is moved out of the viewport by -13em)
          */
         it('is hidden by default', function() {
-            expect($('body').attr("class")).toBe("menu-hidden");
+            expect($('body').attr('class')).toBe('menu-hidden');
         });
         /* DONE: Write a test that ensures the menu changes
          * visibility when the menu icon is clicked. This test
@@ -72,16 +72,16 @@ $(function() {
          */
         it('hides and displays on button click', function() {
             //trigger the first click
-            $('.menu-icon-link').trigger("click");
+            $('.menu-icon-link').trigger('click');
             //body should now not have a class
-            expect($('body').attr("class")).toBe("");
+            expect($('body').attr('class')).toBe('');
             //trigger another click
-            $('.menu-icon-link').trigger("click");
+            $('.menu-icon-link').trigger('click');
             //menu should be hidden again, so menu-hidden class on body
-            expect($('body').attr("class")).toBe("menu-hidden");
+            expect($('body').attr('class')).toBe('menu-hidden');
         });
     });
-    /* DONE: Write a new test suite named "Initial Entries" */
+    /* DONE: Write a new test suite named 'Initial Entries' */
     describe('Initial Entries', function() {
         /* DONE: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -93,38 +93,32 @@ $(function() {
             //load the first feed
             loadFeed(0, done);
         });
-
         it('runs successfully', function() {
             //the  length of list of .entry elements should be longer than 0
             expect($('.entry').length).not.toBe(0);
         });
     });
-    /* DONE: Write a new test suite named "New Feed Selection"*/
+    /* DONE: Write a new test suite named 'New Feed Selection'*/
     describe('New Feed Selection', function() {
         /* DONE: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         //delete feeds contents so there is no dependency to other suites
-        $(".feed").empty();
-
+        //delete feeds contents so there is no dependency to other suites
+        $('.feed').empty();
         var lastContent;
         beforeEach(function(done) {
             //load feed with index 0, and set a new callback for loadFeed
-            loadFeed(1,cb);
-            function cb() {
-            //remember the content of the current feed
-                lastContent = $(".feed").html();
-            }
+            loadFeed(0, function() {
+                //remember the content of the current feed
+                lastContent = $('.feed').html();
+            });
             //and call loadFeed with a different feed.
-            loadFeed(3);
-            done();
+            loadFeed(3, done);
         });
-
         it('changes content', function() {
             //new .feed.html should be different from the lastContent variable.
-            expect($(".feed").html()).not.toBe(lastContent);
-
+            expect($('.feed').html()).not.toBe(lastContent);
         });
     });
 }());
