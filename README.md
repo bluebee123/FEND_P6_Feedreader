@@ -1,3 +1,8 @@
+In this project, I used Jasmine to practice test-driven development. The tests to be applied are listed below in this Readme.
+
+
+---
+
 How to run the application:
 
 1) Clone the repository
